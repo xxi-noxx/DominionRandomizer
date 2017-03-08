@@ -1,0 +1,20 @@
+﻿@model RandomSelector.Models.ViewModel.ErrorViewModel
+
+@section main {
+	<p class=".lead">システムエラーが発生しました。</p>
+	<p>お手数ですが、管理者までご連絡ください。</p>
+
+	<div>
+		<dl class="dl-horizontal">
+			<dt>Controller</dt>
+			<dd>@Model.ErrorInfo.ControllerName</dd>
+			<dt>Action</dt>
+			<dd>@Model.ErrorInfo.ActionName</dd>
+			<dt>例外</dt>
+			<dd>
+				<pre>@Model.ErrorInfo.Exception.GetType().ToString()：@Model.ErrorInfo.Exception.Message</pre>
+			</dd>
+		</dl>
+	</div>
+}
+
