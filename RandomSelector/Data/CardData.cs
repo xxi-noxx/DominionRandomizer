@@ -18,11 +18,11 @@ namespace RandomSelector.Data
 	public static class CardData
 	{
 		/// <summary>全カードデータ</summary>
-		private static IEnumerable<CardEntity> AllCardData { get; }
+		public static IEnumerable<CardEntity> AllCardData { get; }
 		/// <summary>サプライとして選択されるカードデータ</summary>
-		private static IEnumerable<CardEntity> SupplyCardData { get; }
+		public static IEnumerable<CardEntity> SupplyCardData { get; }
 		/// <summary>王国カードデータ</summary>
-		private static IEnumerable<CardEntity> KingdomCardData { get; }
+		public static IEnumerable<CardEntity> KingdomCardData { get; }
 
 		/// <summary>ランダムクラス</summary>
 		public static Random Rnd { get; } = new Random();
