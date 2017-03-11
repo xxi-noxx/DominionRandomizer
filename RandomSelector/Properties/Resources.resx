@@ -121,4 +121,10 @@
   <data name="CardData" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\App_Data\CardData.tsv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="RecommendSetData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\App_Data\RecommendSetData.tsv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RecommendSetDetailData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\App_Data\RecommendSetDetailData.tsv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

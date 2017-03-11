@@ -69,5 +69,25 @@ namespace RandomSelector.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] RecommendSetData {
+            get {
+                object obj = ResourceManager.GetObject("RecommendSetData", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] RecommendSetDetailData {
+            get {
+                object obj = ResourceManager.GetObject("RecommendSetDetailData", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

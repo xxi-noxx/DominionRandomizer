@@ -16,6 +16,57 @@ textarea {
     max-width: 280px;
 }
 
+/*gridのgutter調整*/
+.row-0 {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row-0  > div {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.row-10 {
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+.row-10 > div {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.row-20 {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
+.row-20 > div {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.row-30 {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.row-30 > div {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.row-40 {
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+.row-40 > div {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
 hr {
     height: 2px;
     background-color:#555;
@@ -42,7 +93,7 @@ hr {
 }
 
 .validation-summary-errors > ul {
-	margin : 0px;
+	margin : 0;
 }
 
 #itemArea button {

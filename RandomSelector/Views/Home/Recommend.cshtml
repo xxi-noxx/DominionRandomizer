@@ -1,0 +1,55 @@
+﻿@using RandomSelector.Data
+@using RandomSelector.Common
+@model RandomSelector.Models.ViewModel.Home.RecommendViewModel
+
+@section main {
+	<h2>公式推奨セット</h2>
+
+	<div class="form-group row row-0">
+		<div class="col-xs-10">
+			@Html.DropDownList("recommendList", Model.RecommendDropDownItems, new { @class = "form-control" })
+		</div>
+		
+		<button class="btn btn-default col-xs-2" id="recommendJump">GO</button>
+		@*<div class="col-xs-2">
+			<input type="button" class="form-control btn btn-default" id="recommendJump" value="GO" />
+			
+		</div>*@
+	</div>
+
+
+	@foreach (var item in RecommendData.AllRecommendSetData.OrderByDescending(x => x.BaseExpansionID).ThenBy(x => x.RecommendSetID))
+	{
+		<hr />
+		<h4 id="@item.RecommendSetID">@item.RecommendSetName</h4>
+		<p>（
+			@if (item.BaseExpansionID == item.SubExpansionID)
+			{
+				@Const.ExpansionData[item.BaseExpansionID]
+			}
+			else
+			{
+				@String.Format("{0} + {1}", Const.ExpansionData[item.BaseExpansionID], Const.ExpansionData[item.SubExpansionID])
+			}
+		）</p>
+		<table class="table table-condensed" style="margin-bottom:10px;">
+			@foreach (var card in RecommendData.AllRecommendDetailLookup[item.RecommendSetID].OrderBy(x => x.Class).ThenBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+			{
+				<tr class="expansion@(card.ExpansionID.ToString("D"))">
+					<td class="col-xs-3">@Const.ExpansionData[card.ExpansionID]</td>
+					<td class="col-xs-1">@card.DisplayCost</td>
+					<td class="col-xs-7">@card.Name</td>
+					<td class="col-xs-1">@card.Remark</td>
+				</tr>
+			}
+		</table>
+		<div class="text-right">
+			<a class="toTop">▲ページTOPへ</a>
+		</div>
+	}
+}
+
+
+@section footerJS {
+	<script src="~/Scripts/RaddomSelector.js"></script>
+}
