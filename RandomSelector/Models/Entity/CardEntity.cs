@@ -31,11 +31,10 @@ namespace RandomSelector.Models.Entity
 		public int DebitCost { get; set; }
 		/// <summary>コスト（表示用）</summary>
 		public string DisplayCost { get; set; }
+		/// <summary>財宝コスト以外のコストが無いか</summary>
+		public bool IsTreasureCostOnly { get { return PortionCost <= 0 && DebitCost <= 0; } }
 		/// <summary>並び順</summary>
-		public int SortOrder
-		{
-			get { return (TreasureCost == 0 ? DebitCost : TreasureCost); }
-		}
+		public int SortOrder { get { return (TreasureCost == 0 ? DebitCost : TreasureCost); } }
 		
 		/// <summary>闇市場デッキ候補か</summary>
 		public bool IsDarkMarketCard { get; set; }
