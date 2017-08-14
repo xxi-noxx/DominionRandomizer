@@ -130,68 +130,6 @@ namespace RandomSelector.Data
         }
 
         /// <summary>
-        /// サプライ候補を指定した条件で絞り込んでから、ランダムにカードを1枚取得する
-        /// </summary>
-        /// <param name="condition">絞り込み条件</param>
-        /// <returns>ランダムに選択されたカード情報</returns>
-        public static CardEntity GetRandomSupplyCard(CardChoiceCondition condition)
-        {
-            var condedCardData = SetCondition(SupplyCardData, condition);
-            return GetRandomCard(condedCardData);
-        }
-
-        /// <summary>
-        /// サプライ候補を拡張で絞り込んでから、ランダムにカードを1枚取得する
-        /// </summary>
-        /// <param name="condition">絞り込み条件</param>
-        /// <param name="targetExpansion">絞り込む拡張</param>
-        /// <returns>ランダムに選択されたカード情報</returns>
-        public static CardEntity GetRandomSupplyCard(CardChoiceCondition condition, ExpansionID targetExpansion)
-        {
-            var condedCardData = SetCondition(SupplyCardData, condition).Where(x => x.ExpansionID == targetExpansion);
-            return GetRandomCard(condedCardData);
-        }
-
-        /// <summary>
-        /// 王国カード候補を指定した条件で絞り込んでから、ランダムにカードを1枚取得する
-        /// </summary>
-        /// <param name="condition">絞り込み条件</param>
-        /// <returns>ランダムに選択されたカード情報</returns>
-        public static CardEntity GetRandomKingdomCard(CardChoiceCondition condition)
-        {
-            var condedCardData = SetCondition(KingdomCardData, condition);
-            return GetRandomCard(condedCardData);
-        }
-
-        /// <summary>
-        /// 災いカードを1枚取得する
-        /// </summary>
-        /// <param name="condition">絞り込み条件</param>
-        /// <returns>災いカード</returns>
-        /// <remarks>残り候補に災いカードになる対象がない場合はnullを返します。</remarks>
-        public static CardEntity GetDisasterCard(CardChoiceCondition condition)
-        {
-            var condedCardData = SetCondition(KingdomCardData, condition).Where(x => new[] { 2, 3 }.Contains(x.TreasureCost) && x.IsTreasureCostOnly);
-            return GetRandomCard(condedCardData);
-        }
-
-        /// <summary>
-        /// 選択済のカードから災いカードを1枚選定する
-        /// </summary>
-        /// <param name="selectedCardList">選択されているカード</param>
-        /// <returns>災いカードとして選ばれたカード情報</returns>
-        public static CardEntity GetDisasterCard(IEnumerable<CardEntity> selectedCardList)
-        {
-            return GetRandomCard(
-                selectedCardList.Where(x =>
-                    x.Class == CardClass.Kingdom &&
-                    new[] { 2, 3 }.Contains(x.TreasureCost) &&
-                    x.IsTreasureCostOnly
-                )
-            );
-        }
-
-        /// <summary>
         /// 闇市場デッキ用カードを1枚選定する
         /// </summary>
         /// <param name="condition">絞り込み条件</param>
