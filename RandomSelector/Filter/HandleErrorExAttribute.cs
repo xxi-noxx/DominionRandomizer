@@ -4,7 +4,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RandomSelector.Attribute
+namespace RandomSelector.Filter
 {
 	/// <summary>
 	/// 例外エラーハンドルFilterAttribute

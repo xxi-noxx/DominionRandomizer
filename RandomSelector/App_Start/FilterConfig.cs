@@ -1,4 +1,4 @@
-﻿using RandomSelector.Attribute;
+﻿using RandomSelector.Filter;
 using System.Web.Mvc;
 
 namespace RandomSelector.App_Start
