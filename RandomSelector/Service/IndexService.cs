@@ -28,8 +28,9 @@ namespace RandomSelector.Service
                 Param = new IndexParam(),
                 PromCardList = _cardService.GetPromSupplyCardData()
             };
-            // 初期選択からは「基本」「陰謀2nd」「プロモ」を外しておく
-            model.Param.ExpansionIDList = Const.ExpansionData.Keys.Where(x => x != ExpansionID.Promotion && x != ExpansionID.Intrigue2nd);
+            // 初期選択からは「基本」「陰謀2nd」「Nocturne」「プロモ」を外しておく
+            var exclusionExpansion = new[] { ExpansionID.Basic, ExpansionID.Promotion, ExpansionID.Intrigue2nd, ExpansionID.Nocturne };
+            model.Param.ExpansionIDList = EnumUtil.GetDisplayValuea<ExpansionID>().Where(x => !exclusionExpansion.Contains(x));
             // 錬金術の重み付けは初期False
             model.Param.IsWeightingAlchemy = false;
 
@@ -82,6 +83,9 @@ namespace RandomSelector.Service
                 condition.ExpansionIDList = param.ExpansionIDList;
                 CreateDarkMarketDeck(model, condition);
             }
+
+            // 使用するHeirloomsを集める
+            model.UseHeirlooms = model.UseKingdomCardList.Where(x => x.HeirloomCard != Heirloom.NoUse).Select(x => x.HeirloomCard).ToArray();
 
             return model;
         }
