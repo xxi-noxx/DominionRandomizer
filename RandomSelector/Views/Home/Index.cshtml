@@ -1,4 +1,5 @@
 ﻿@using RandomSelector.Common
+@using RandomSelector.Models.Param
 @using RandomSelector.Models.ViewModel
 @model IndexViewModel
 
@@ -11,7 +12,7 @@
 			<th colspan="4">王国カード</th>
 		</tr>
 
-		@foreach (var card in Model.UseKingdomCardList.OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+		@foreach (var card in Model.GetUseKingdomListAddDisaster().OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
 		{
 			<tr class="expansion@(card.ExpansionID.ToString("D"))">
 				<td class="col-xs-3">@Const.ExpansionData[card.ExpansionID]</td>
@@ -71,7 +72,6 @@
 
 @using (Html.BeginForm())
 {
-	@Html.AntiForgeryToken()
 	<hr />
 	<input type="submit" class="btn btn-primary btn-block btn-lg center-block" value="実行" />
 	<div class="form-group" id="expantionArea">
@@ -96,9 +96,18 @@
 			}
 		</div>
 	</div>
+    <h3>【詳細設定】</h3>
+    <div class="form-group" id="detailSettings">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="@nameof(IndexParam.IsWeightingAlchemy)" name="@nameof(IndexParam.IsWeightingAlchemy)" value="true" checked="@Model.Param.IsWeightingAlchemy" />
+                錬金術の重み付けを行う
+            </label>
+        </div>
+    </div>
 }
 }
 
 @section footerJS {
-	<script src="~/Scripts/RaddomSelector.js"></script>
+	<script src="~/Scripts/RandomSelector.js"></script>
 }

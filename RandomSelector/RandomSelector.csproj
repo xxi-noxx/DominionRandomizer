@@ -123,7 +123,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\RaddomSelector.js" />
+    <Content Include="Scripts\RandomSelector.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -144,6 +144,7 @@
     </Compile>
     <Compile Include="Models\Entity\CardEntity.cs" />
     <Compile Include="Models\Entity\RecommendEntity.cs" />
+    <Compile Include="Models\Param\IndexParam.cs" />
     <Compile Include="Models\ViewModel\ErrorViewModel.cs" />
     <Compile Include="Models\ViewModel\Home\RecommendViewModel.cs" />
     <Compile Include="Models\ViewModel\IndexViewModel.cs" />
@@ -153,6 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\CardService.cs" />
     <Compile Include="Service\IndexService.cs" />
   </ItemGroup>
   <ItemGroup>
