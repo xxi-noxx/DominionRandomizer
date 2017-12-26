@@ -28,10 +28,10 @@ namespace RandomSelector.Service
                 Param = new IndexParam(),
                 PromCardList = _cardService.GetPromSupplyCardData()
             };
-            // 初期選択からは「プロモ」「基本2nd」「陰謀2nd」を外しておく
-            model.Param.ExpansionIDList = Const.ExpansionData.Keys.Where(x => x != ExpansionID.Promotion && x != ExpansionID.Basic2nd && x != ExpansionID.Intrigue2nd);
-            // 錬金術の重み付けは初期True
-            model.Param.IsWeightingAlchemy = true;
+            // 初期選択からは「基本」「陰謀2nd」「プロモ」を外しておく
+            model.Param.ExpansionIDList = Const.ExpansionData.Keys.Where(x => x != ExpansionID.Promotion && x != ExpansionID.Intrigue2nd);
+            // 錬金術の重み付けは初期False
+            model.Param.IsWeightingAlchemy = false;
 
             return model;
         }
@@ -61,18 +61,19 @@ namespace RandomSelector.Service
             // 災いカード設定
             if (model.UseKingdomCardList.Any(x => x.CardID == Const.YoungWitchCardID))
             {
-                var disaster = GetDisaster(CardData.SupplyCardData, condition);
+                // サプライ一覧だとEV/LMが含まれてしまう為、王国カードから取得する。
+                var disaster = GetDisaster(CardData.KingdomCardData, condition);
                 if (disaster == null)
                 {
-                    disaster = GetDisaster(model.UseKingdomCardList, condition);
+                    disaster = GetDisaster(model.UseKingdomCardList, null);
                     disaster.SelectedNumber = 0;
-                    model.UseKingdomCardList.Remove(disaster);
-                    // 代わりのカードを王国カード一覧から取得（サプライ一覧だとEV/LMが含まれる）
+                    model.UseKingdomCardList.Remove(model.UseKingdomCardList.Single(x => x.CardID == disaster.CardID));
+                    // 代わりに王国カードに加えるカードを取得
                     var addKingdomCard = _cardService.GetRandomCard(CardData.KingdomCardData, condition);
                     addKingdomCard.SelectedNumber = model.UseKingdomCardList.Count + 1;
                     model.UseKingdomCardList.Add(addKingdomCard);
                 }
-                model.DisasterCard = GetDisaster(model.UseKingdomCardList, condition);
+                model.DisasterCard = disaster;
             }
             // 闇市場デッキ作成
             if (model.UseKingdomCardList.Any(x => x.CardID == Const.DarkMarketCardID) || (model.DisasterCard?.CardID ?? 0) == Const.DarkMarketCardID)
@@ -95,15 +96,35 @@ namespace RandomSelector.Service
             var kingdomCardList = new List<CardEntity>();
             var notKingdomCardList = new List<CardEntity>();
 
+            CardEntity selectedCard;
+            // アクション権必須
+            if (condition.IsMustPlusAction)
+            {
+                selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.IsPlusAction);
+                condition.IgnoreCardIDList.Add(selectedCard.CardID);
+            }
+            // 購入権必須
+            if (condition.IsMustPlusBuy)
+            {
+                selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.IsPlusBuy);
+                condition.IgnoreCardIDList.Add(selectedCard.CardID);
+            }
+            // 特殊勝利点必須
+            if (condition.IsMustSpecialVictory)
+            {
+                selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.IsSpecialVictory);
+                condition.IgnoreCardIDList.Add(selectedCard.CardID);
+            }
+
             // カード選択
             while (kingdomCardList.Count < condition.SelectCardCount)
             {
-                var card = _cardService.GetRandomCard(CardData.SupplyCardData, condition);
-                if (card == null)
+                selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition);
+                if (selectedCard == null)
                 {
                     break;
                 }
-                if (card.Class == CardClass.NotKingdom)
+                if (selectedCard.Class == CardClass.NotKingdom)
                 {
                     if (notKingdomCardList.Count >= 2)
                     {
@@ -111,16 +132,16 @@ namespace RandomSelector.Service
                     }
                     else
                     {
-                        card.SelectedNumber = notKingdomCardList.Count + 1;
-                        notKingdomCardList.Add(card);
+                        selectedCard.SelectedNumber = notKingdomCardList.Count + 1;
+                        notKingdomCardList.Add(selectedCard);
                     }
                 }
                 else
                 {
-                    card.SelectedNumber = kingdomCardList.Count + 1;
-                    kingdomCardList.Add(card);
+                    selectedCard.SelectedNumber = kingdomCardList.Count + 1;
+                    kingdomCardList.Add(selectedCard);
                 }
-                condition.IgnoreCardIDList.Add(card.CardID);
+                condition.IgnoreCardIDList.Add(selectedCard.CardID);
 
                 // 半分選択した所で錬金術重み付け
                 if (condition.IsWeightingAlchemy)

@@ -19,8 +19,15 @@ namespace RandomSelector.Models.Param
         // TODO : 画面から取得
         /// <summary>カード選択数</summary>
         public int SelectCardCount { get; set; } = 10;
+
         /// <summary>錬金術の重み付けを行うか</summary>
         public bool IsWeightingAlchemy { get; set; }
+        /// <summary>アクション増加を必ず含むか</summary>
+        public bool IsMustPlusAction { get; set; }
+        /// <summary>購入増加を必ず含むか</summary>
+        public bool IsMustPlusBuy { get; set; }
+        /// <summary>特殊勝利点を必ず含むか</summary>
+        public bool IsMustSpecialVictory { get; set; }
 
         /// <summary>
         /// 検証処理
@@ -41,7 +48,7 @@ namespace RandomSelector.Models.Param
     /// <summary>
     /// カードの抽出条件
     /// </summary>
-    public class CardChoiceCondition
+    public class CardChoiceCondition : IndexParam
     {
         /// <summary>
         /// カードの抽出条件を入力パラメータから作ります
@@ -54,15 +61,12 @@ namespace RandomSelector.Models.Param
             IgnoreCardIDList = cardService.GetNotSelectedPromSupplyCardIDList(param.SelectedPromCardID).ToList();
             SelectCardCount = param.SelectCardCount;
             IsWeightingAlchemy = param.IsWeightingAlchemy;
+            IsMustPlusAction = param.IsMustPlusAction;
+            IsMustPlusBuy = param.IsMustPlusBuy;
+            IsMustSpecialVictory = param.IsMustSpecialVictory;
         }
 
-        /// <summary>拡張一覧</summary>
-        public IEnumerable<ExpansionID> ExpansionIDList { get; set; }
         /// <summary>除外するカード一覧</summary>
         public List<int> IgnoreCardIDList { get; set; }
-        /// <summary>選択するカードの枚数</summary>
-        public int SelectCardCount { get; set; }
-        /// <summary>錬金術の重み付けを行うか</summary>
-        public bool IsWeightingAlchemy { get; set; }
     }
 }
