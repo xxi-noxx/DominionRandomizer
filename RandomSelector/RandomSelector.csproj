@@ -132,8 +132,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Attribute\HandleErrorExAttribute.cs" />
+    <Compile Include="Filter\HandleErrorExAttribute.cs" />
     <Compile Include="Common\Const.cs" />
+    <Compile Include="Common\EnumExtention.cs" />
     <Compile Include="Common\LogUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OtherController.cs" />

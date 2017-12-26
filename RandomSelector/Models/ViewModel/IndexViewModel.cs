@@ -57,6 +57,11 @@ namespace RandomSelector.Models.ViewModel
         }
 
         /// <summary>
+        /// 使用するHeirlooms一覧
+        /// </summary>
+        public IEnumerable<Heirloom> UseHeirlooms { get; set; }
+
+        /// <summary>
         /// 仕様する王国カード一覧に災いカードを追加して返す
         /// </summary>
         /// <returns></returns>

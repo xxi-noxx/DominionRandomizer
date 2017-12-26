@@ -44,6 +44,8 @@ namespace RandomSelector.Models.Entity
         public CardClass Class { get; set; }
         /// <summary>種類（アクションか 等）</summary>
         public CardType Type { get; set; }
+        /// <summary>Heirloomのカード</summary>
+        public Heirloom HeirloomCard { get; set; }
 
         /// <summary>選択された順番</summary>
         public int SelectedNumber { get; set; }
@@ -88,6 +90,7 @@ namespace RandomSelector.Models.Entity
             Map(x => x.Type).Name("Type");
             Map(x => x.IsDarkMarketCard).Name("IsDarkMarketCard");
             Map(x => x.UseItem).Name("UseItem");
+            Map(x => x.HeirloomCard).Name(nameof(CardEntity.HeirloomCard));
         }
     }
 }
