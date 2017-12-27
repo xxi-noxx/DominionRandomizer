@@ -60,7 +60,7 @@
         <div id="itemArea" class="optionItem">
             <button class="btn btn-xs @(Model.IsUseColony ? "btn-success" : "btn-default")" disabled="@(!Model.IsUseColony)">白金貨・植民地</button>
             <button class="btn btn-xs @(Model.IsUseShelter ? "btn-success" : "btn-default")" disabled="@(!Model.IsUseShelter)">避難所</button>
-            @foreach (var item in EnumUtil.GetDisplayValuea<ItemCode>())
+            @foreach (var item in EnumUtil.GetDisplayValues<ItemCode>().OrderBy(x => x.GetDisplayAttr()?.GetOrder() ?? 0))
             {
                 var isUse = Model.IsUseItem(item);
                 <button class="btn btn-xs @(isUse ? "btn-success" : "btn-default")" disabled="@(!isUse)">@item.ToDisplayName()</button>
@@ -69,7 +69,7 @@
         if (Model.Param.ExpansionIDList.Contains(ExpansionID.Nocturne))
         {
             <div id="heirloomArea" class="optionItem">
-                @foreach (var item in EnumUtil.GetDisplayValuea<Heirloom>().OrderBy(x => x))
+                @foreach (var item in EnumUtil.GetDisplayValues<Heirloom>().OrderBy(x => x))
                 {
                     <button class="btn btn-xs @(Model.UseHeirlooms.Contains(item) ? "btn-success" : "btn-default")" disabled="@(!Model.UseHeirlooms.Contains(item))">@item.ToDisplayName()</button>
                 }
@@ -81,40 +81,60 @@
     {
         <hr />
         <input type="submit" class="btn btn-primary btn-block btn-lg center-block" value="実行" />
-        <div class="form-group" id="expantionArea">
-            @foreach (var expansion in EnumUtil.GetDisplayValuea<ExpansionID>().OrderBy(x => x))
-            {
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="@(nameof(IndexParam.ExpansionIDList) + "_" + expansion.ToString("D"))" name="@nameof(IndexParam.ExpansionIDList)" value="@expansion" checked="@Model.Param.ExpansionIDList.Contains(expansion)" />
-                        @expansion.ToDisplayName()
-                    </label>
-                </div>
-            }
-            <div id="promCard" class="col-xs-offset-1" style="@(Model.Param.ExpansionIDList.Any(x => x == ExpansionID.Promotion) ? "" : "display:none;")">
-                @foreach (var prom in Model.PromCardList)
-                {
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="@nameof(IndexParam.SelectedPromCardID)" value="@prom.CardID" checked="@Model.Param.SelectedPromCardID.Contains(prom.CardID)" />
-                            @prom.Name
-                        </label>
+        <table id="expansionArea" class="table table-condensed" style="margin-top: 3px; margin-bottom: 0; width: auto;">
+            <tr>
+                <th>拡張名</th>
+                <th>使用</th>
+                <th>優先</th>
+                <td style="padding: 0;" rowspan="@(Enum.GetValues(typeof(ExpansionID)).Length - 1)">
+                    <div id="helpBtnArea" style="margin: 15px 0 5px 5px; width: 100px;">
+                        <button class="btn btn-xs" id="allExpansionSelect">全拡張選択</button>
+                        <button class="btn btn-xs" id="allExpansionClear">全拡張クリア</button>
+                        <br />
+                        <button class="btn btn-xs" id="priorityClear">優先クリア</button>
                     </div>
-                }
-            </div>
-        </div>
+                </td>
+            </tr>
+            @foreach (var item in EnumUtil.GetDisplayValues<ExpansionID>())
+            {
+                <tr>
+                    <td style="padding-right: 10px;"><label style="font-weight: normal;">@item.ToDisplayName()</label></td>
+                    <td style="text-align:center;">
+                        <input type="checkbox" name="@nameof(Model.Param.ExpansionIDList)" value="@item" checked="@(Model.Param.ExpansionIDList.Contains(item))" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="○" data-off="×" />
+                    </td>
+                    @if (item != ExpansionID.Promotion)
+                    {
+                        <td style="text-align:center;">@Html.RadioButton(nameof(Model.Param.PriorityExpansion), item, (item == Model.Param.PriorityExpansion), new { id = "" })</td>
+                    }
+                    else
+                    {
+                        <td colspan="2" style="padding: 0;">
+                            <div id="promCard" style="@(Model.Param.ExpansionIDList.Any(x => x == ExpansionID.Promotion) ? "" : "display:none;")">
+                                @foreach (var prom in Model.PromCardList)
+                                {
+                                    <div class="promItem">
+                                        <input type="checkbox" name="@nameof(IndexParam.SelectedPromCardID)" value="@prom.CardID" checked="@Model.Param.SelectedPromCardID.Contains(prom.CardID)" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="○" data-off="×" />
+                                        <label>@prom.Name</label>
+                                    </div>
+                                }
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+
         <h3>【詳細設定】</h3>
-        <div class="form-group" id="detailSettings">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="@nameof(IndexParam.IsWeightingAlchemy)" name="@nameof(IndexParam.IsWeightingAlchemy)" value="true" checked="@Model.Param.IsWeightingAlchemy" />
-                    錬金術の重み付けを行う
-                </label>
+        <div id="detailSettings">
+            <div class="">
+                <input type="checkbox" id="@nameof(IndexParam.IsWeightingAlchemy)" name="@nameof(IndexParam.IsWeightingAlchemy)" value="true" checked="@(Model.Param.IsWeightingAlchemy)" data-toggle="toggle" data-size="mini" data-onstyle="success" />
+                <label>錬金術重み付け</label>
             </div>
         </div>
+        <input type="submit" class="btn btn-primary btn-block btn-lg center-block" value="実行" />
     }
 }
 
 @section footerJS {
-    <script src="~/Scripts/RandomSelector.js"></script>
+    @Scripts.Render("~/bundles/myscript")
 }
