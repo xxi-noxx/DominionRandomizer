@@ -125,34 +125,34 @@ namespace RandomSelector.Common
     public enum ItemCode
     {
         /// <summary>抑留トークン</summary>
-        [Display(Name = "抑留トークン")]
+        [Display(Name = "抑留トークン", Order = 11)]
         EmbargoToken = 1,
         /// <summary>コイントークン</summary>
-        [Display(Name = "コイントークン")]
+        [Display(Name = "コイントークン", Order = 12)]
         CoinToken = 1 << 1,
         /// <summary>ポーション</summary>
-        [Display(Name = "ポーション")]
+        [Display(Name = "ポーション", Order = 1)]
         Potion = 1 << 2,
         /// <summary>勝利点トークン</summary>
-        [Display(Name = "勝利点トークン")]
+        [Display(Name = "勝利点トークン", Order = 13)]
         VPToken = 1 << 3,
         /// <summary>廃墟</summary>
-        [Display(Name = "廃墟")]
+        [Display(Name = "廃墟", Order = 21)]
         Ruins = 1 << 4,
         /// <summary>略奪品</summary>
-        [Display(Name = "略奪品")]
+        [Display(Name = "略奪品", Order = 22)]
         Spoils = 1 << 5,
         /// <summary>冒険トークン</summary>
-        [Display(Name = "冒険トークン")]
+        [Display(Name = "冒険トークン", Order = 14)]
         AdventureToken = 1 << 6,
         /// <summary>負債トークン</summary>
-        [Display(Name = "負債トークン")]
+        [Display(Name = "負債トークン", Order = 15)]
         DebitToken = 1 << 7,
         /// <summary>Boons</summary>
-        [Display(Name = "Boons")]
+        [Display(Name = "Boons", Order = 23)]
         Boons = 1 << 8,
         /// <summary>Hexes</summary>
-        [Display(Name = "Hexes")]
+        [Display(Name = "Hexes", Order = 24)]
         Hexes = 1 << 9
     }
 
