@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using RandomSelector.Common;
-using RandomSelector.Data;
 using RandomSelector.Service;
 
 namespace RandomSelector.Models.Param
@@ -13,12 +12,16 @@ namespace RandomSelector.Models.Param
     public class IndexParam : IValidatableObject
     {
         /// <summary>拡張一覧</summary>
-        public IEnumerable<ExpansionID> ExpansionIDList { get; set; } = Enumerable.Empty<ExpansionID>();
+        public IEnumerable<ExpansionID> ExpansionIDList { get; set; }
         /// <summary>選択されたプロモカード一覧</summary>
         public IEnumerable<int> SelectedPromCardID { get; set; } = Enumerable.Empty<int>();
         // TODO : 画面から取得
         /// <summary>カード選択数</summary>
         public int SelectCardCount { get; set; } = 10;
+
+        /// <summary>優先する拡張</summary>
+        [EnumDataType(typeof(ExpansionID))]
+        public ExpansionID? PriorityExpansion { get; set; }
 
         /// <summary>錬金術の重み付けを行うか</summary>
         public bool IsWeightingAlchemy { get; set; }
@@ -42,6 +45,10 @@ namespace RandomSelector.Models.Param
             {
                 yield return new ValidationResult("プロモのみの選択は出来ません。");
             }
+            else if (PriorityExpansion.HasValue && !ExpansionIDList.Contains(PriorityExpansion.Value))
+            {
+                yield return new ValidationResult("優先拡張が使用されていません。");
+            }
         }
     }
 
@@ -57,6 +64,7 @@ namespace RandomSelector.Models.Param
         /// <param name="cardService">カード情報処理BusinessLogicクラスインスタンス</param>
         public CardChoiceCondition(IndexParam param, CardService cardService)
         {
+            // TODO : AutoMapper
             ExpansionIDList = param.ExpansionIDList;
             IgnoreCardIDList = cardService.GetNotSelectedPromSupplyCardIDList(param.SelectedPromCardID).ToList();
             SelectCardCount = param.SelectCardCount;
@@ -64,6 +72,7 @@ namespace RandomSelector.Models.Param
             IsMustPlusAction = param.IsMustPlusAction;
             IsMustPlusBuy = param.IsMustPlusBuy;
             IsMustSpecialVictory = param.IsMustSpecialVictory;
+            PriorityExpansion = param.PriorityExpansion;
         }
 
         /// <summary>除外するカード一覧</summary>

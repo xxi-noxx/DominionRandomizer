@@ -18,7 +18,7 @@ namespace RandomSelector.Controllers
         /// </summary>
         public HomeController()
         {
-            _service = new IndexService();
+            _service = new IndexService(new CardService());
         }
 
         /// <summary>
