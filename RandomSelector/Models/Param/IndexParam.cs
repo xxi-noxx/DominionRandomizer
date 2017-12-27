@@ -12,7 +12,7 @@ namespace RandomSelector.Models.Param
     public class IndexParam : IValidatableObject
     {
         /// <summary>拡張一覧</summary>
-        public IEnumerable<ExpansionID> ExpansionIDList { get; set; }
+        public IEnumerable<ExpansionID> ExpansionIDList { get; set; } = Enumerable.Empty<ExpansionID>();
         /// <summary>選択されたプロモカード一覧</summary>
         public IEnumerable<int> SelectedPromCardID { get; set; } = Enumerable.Empty<int>();
         // TODO : 画面から取得
@@ -37,7 +37,7 @@ namespace RandomSelector.Models.Param
         /// </summary>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!ExpansionIDList?.Any() ?? false)
+            if (!ExpansionIDList?.Any() ?? true)
             {
                 yield return new ValidationResult("拡張が選択されていません。");
             }

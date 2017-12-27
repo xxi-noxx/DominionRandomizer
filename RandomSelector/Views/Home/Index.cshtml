@@ -112,10 +112,10 @@
                             <div id="promCard" style="@(Model.Param.ExpansionIDList.Any(x => x == ExpansionID.Promotion) ? "" : "display:none;")">
                                 @foreach (var prom in Model.PromCardList)
                                 {
-                                <div class="promItem">
-                                    <input type="checkbox" name="@nameof(IndexParam.SelectedPromCardID)" value="@prom.CardID" checked="@Model.Param.SelectedPromCardID.Contains(prom.CardID)" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="○" data-off="×" />
-                                    <label>@prom.Name</label>
-                                </div>
+                                    <div class="promItem">
+                                        <input type="checkbox" name="@nameof(IndexParam.SelectedPromCardID)" value="@prom.CardID" checked="@Model.Param.SelectedPromCardID.Contains(prom.CardID)" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="○" data-off="×" />
+                                        <label>@prom.Name</label>
+                                    </div>
                                 }
                             </div>
                         </td>
@@ -136,5 +136,5 @@
 }
 
 @section footerJS {
-    <script src="~/Scripts/RandomSelector.js"></script>
+    @Scripts.Render("~/bundles/myscript")
 }
