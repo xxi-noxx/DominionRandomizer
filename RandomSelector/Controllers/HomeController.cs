@@ -63,7 +63,7 @@ namespace RandomSelector.Controllers
         /// <returns></returns>
         public ActionResult Recommend()
         {
-            return View(new Models.ViewModel.Home.RecommendViewModel());
+            return View(new RecommendViewModel());
         }
 
         public ActionResult Veto()

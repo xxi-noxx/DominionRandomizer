@@ -10,7 +10,7 @@
                 <th colspan="4">王国カード</th>
             </tr>
 
-            @foreach (var card in Model.GetUseKingdomListAddDisaster().OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+            @foreach (var card in Model.GetUseKingdomListAddDisaster().OrderBy(x => x.ExpansionID.GetDisplayAttr()?.GetOrder() ?? 0).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
             {
                 <tr class="expansion@(card.ExpansionID.ToString("D"))">
                     <td class="col-xs-3">@card.ExpansionID.ToDisplayName()</td>
@@ -25,7 +25,7 @@
                 <tr>
                     <th colspan="4">イベント・ランドマーク</th>
                 </tr>
-                foreach (var card in Model.UseNotKingdomCardList.OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+                foreach (var card in Model.UseNotKingdomCardList.OrderBy(x => x.ExpansionID.GetDisplayAttr()?.GetOrder() ?? 0).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
                 {
                     <tr class="expansion@(card.ExpansionID.ToString("D"))">
                         <td>@card.ExpansionID.ToDisplayName()</td>
@@ -88,14 +88,14 @@
                 <th>優先</th>
                 <td style="padding: 0;" rowspan="@(Enum.GetValues(typeof(ExpansionID)).Length - 1)">
                     <div id="helpBtnArea" style="margin: 15px 0 5px 5px; width: 100px;">
-                        <button class="btn btn-xs" id="allExpansionSelect">全拡張選択</button>
-                        <button class="btn btn-xs" id="allExpansionClear">全拡張クリア</button>
+                        <button class="btn btn-xs btn-default" id="allExpansionSelect">全拡張選択</button>
+                        <button class="btn btn-xs btn-default" id="allExpansionClear">全拡張クリア</button>
                         <br />
-                        <button class="btn btn-xs" id="priorityClear">優先クリア</button>
+                        <button class="btn btn-xs btn-default" id="priorityClear">優先クリア</button>
                     </div>
                 </td>
             </tr>
-            @foreach (var item in EnumUtil.GetDisplayValues<ExpansionID>())
+            @foreach (var item in EnumUtil.GetDisplayValues<ExpansionID>().OrderBy(x => x.GetDisplayAttr()?.GetOrder() ?? 0))
             {
                 <tr>
                     <td style="padding-right: 10px;"><label style="font-weight: normal;">@item.ToDisplayName()</label></td>
@@ -127,7 +127,7 @@
         <h3>【詳細設定】</h3>
         <div id="detailSettings">
             <div class="">
-                <input type="checkbox" id="@nameof(IndexParam.IsWeightingAlchemy)" name="@nameof(IndexParam.IsWeightingAlchemy)" value="true" checked="@(Model.Param.IsWeightingAlchemy)" data-toggle="toggle" data-size="mini" data-onstyle="success" />
+                <input type="checkbox" id="@nameof(IndexParam.IsWeightingAlchemy)" name="@nameof(IndexParam.IsWeightingAlchemy)" value="true" checked="@Model.Param.IsWeightingAlchemy" data-toggle="toggle" data-size="mini" data-onstyle="success" />
                 <label>錬金術重み付け</label>
             </div>
         </div>
