@@ -72,49 +72,49 @@ namespace RandomSelector.Common
         /// <remarks>非表示用データにつき、DisplayAttributeを持たない</remarks>
         BasicSet = 0,
         /// <summary>基本</summary>
-        [Display(Name = "基本")]
+        [Display(Name = "基本", Order = 1)]
         Basic = 1,
         /// <summary>陰謀</summary>
-        [Display(Name = "陰謀")]
+        [Display(Name = "陰謀", Order = 3)]
         Intrigue = 2,
         /// <summary>海辺</summary>
-        [Display(Name = "海辺")]
+        [Display(Name = "海辺", Order = 5)]
         Seaside = 3,
         /// <summary>錬金術</summary>
-        [Display(Name = "錬金術")]
+        [Display(Name = "錬金術", Order = 6)]
         Alchemy = 4,
         /// <summary>繁栄</summary>
-        [Display(Name = "繁栄")]
+        [Display(Name = "繁栄", Order = 7)]
         Prosperity = 5,
         /// <summary>収穫祭</summary>
-        [Display(Name = "収穫祭")]
+        [Display(Name = "収穫祭", Order = 8)]
         Cornucopia = 6,
         /// <summary>異郷</summary>
-        [Display(Name = "異郷")]
+        [Display(Name = "異郷", Order = 9)]
         Hinterlands = 7,
         /// <summary>暗黒時代</summary>
-        [Display(Name = "暗黒時代")]
+        [Display(Name = "暗黒時代", Order = 10)]
         DarkAges = 8,
         /// <summary>ギルド</summary>
-        [Display(Name = "ギルド")]
+        [Display(Name = "ギルド", Order = 11)]
         Guilds = 9,
         /// <summary>冒険</summary>
-        [Display(Name = "冒険")]
+        [Display(Name = "冒険", Order = 12)]
         Adventures = 10,
         /// <summary>帝国</summary>
-        [Display(Name = "帝国")]
+        [Display(Name = "帝国", Order = 13)]
         Empires = 11,
         /// <summary>基本2nd</summary>
-        [Display(Name = "基本(2版)")]
+        [Display(Name = "基本(2版)", Order = 2)]
         Basic2nd = 12,
         /// <summary>陰謀2nd</summary>
-        [Display(Name = "陰謀(2版)")]
+        [Display(Name = "陰謀(2版)", Order = 4)]
         Intrigue2nd = 13,
         /// <summary>Nocturne</summary>
-        [Display(Name = "Nocturne")]
+        [Display(Name = "Nocturne", Order = 14)]
         Nocturne = 14,
         /// <summary>プロモ</summary>
-        [Display(Name = "プロモ")]
+        [Display(Name = "プロモ", Order = 99)]
         Promotion = 99,
     }
 

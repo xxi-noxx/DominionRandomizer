@@ -10,7 +10,7 @@
                 <th colspan="4">王国カード</th>
             </tr>
 
-            @foreach (var card in Model.GetUseKingdomListAddDisaster().OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+            @foreach (var card in Model.GetUseKingdomListAddDisaster().OrderBy(x => x.ExpansionID.GetDisplayAttr()?.GetOrder() ?? 0).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
             {
                 <tr class="expansion@(card.ExpansionID.ToString("D"))">
                     <td class="col-xs-3">@card.ExpansionID.ToDisplayName()</td>
@@ -25,7 +25,7 @@
                 <tr>
                     <th colspan="4">イベント・ランドマーク</th>
                 </tr>
-                foreach (var card in Model.UseNotKingdomCardList.OrderBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+                foreach (var card in Model.UseNotKingdomCardList.OrderBy(x => x.ExpansionID.GetDisplayAttr()?.GetOrder() ?? 0).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
                 {
                     <tr class="expansion@(card.ExpansionID.ToString("D"))">
                         <td>@card.ExpansionID.ToDisplayName()</td>
@@ -95,7 +95,7 @@
                     </div>
                 </td>
             </tr>
-            @foreach (var item in EnumUtil.GetDisplayValues<ExpansionID>())
+            @foreach (var item in EnumUtil.GetDisplayValues<ExpansionID>().OrderBy(x => x.GetDisplayAttr()?.GetOrder() ?? 0))
             {
                 <tr>
                     <td style="padding-right: 10px;"><label style="font-weight: normal;">@item.ToDisplayName()</label></td>
