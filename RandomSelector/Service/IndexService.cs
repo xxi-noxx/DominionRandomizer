@@ -240,7 +240,7 @@ namespace RandomSelector.Service
             // 最大25枚のカードを闇市場デッキとする
             while (model.DarkMarketCardList.Count < 25)
             {
-                var card = CardData.GetDarkMarketCard(condition);
+                var card = _cardService.GetRandomCard(CardData.AllCardData, condition, x => x.IsDarkMarketCard);
                 if (card == null)
                 {
                     break;
