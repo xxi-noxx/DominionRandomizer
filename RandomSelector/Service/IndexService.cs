@@ -74,18 +74,27 @@ namespace RandomSelector.Service
             {
                 // サプライ一覧だとEV/LMが含まれてしまう為、王国カードから取得する。
                 var disaster = GetDisaster(CardData.KingdomCardData, condition);
-                if (disaster == null)
+                if (disaster != null)
                 {
+                    model.DisasterCard = disaster;
+                    condition.IgnoreCardIDList.Add(disaster.CardID);
+                }
+                else
+                {
+                    // 災いカードが残りの王国カードから取れなかった場合は、選択済のカード一覧から探して入れ替える
                     disaster = GetDisaster(model.UseKingdomCardList, null);
                     disaster.SelectedNumber = 0;
+                    model.DisasterCard = disaster;
                     model.UseKingdomCardList.Remove(model.UseKingdomCardList.Single(x => x.CardID == disaster.CardID));
+
                     // 代わりに王国カードに加えるカードを取得
                     var addKingdomCard = _cardService.GetRandomCard(CardData.KingdomCardData, condition);
                     addKingdomCard.SelectedNumber = model.UseKingdomCardList.Count + 1;
                     model.UseKingdomCardList.Add(addKingdomCard);
+                    condition.IgnoreCardIDList.Add(addKingdomCard.CardID);
                 }
-                model.DisasterCard = disaster;
             }
+
             // 闇市場デッキ作成
             if (model.UseKingdomCardList.Any(x => x.CardID == Const.DarkMarketCardID) || (model.DisasterCard?.CardID ?? 0) == Const.DarkMarketCardID)
             {

@@ -96,24 +96,6 @@ namespace RandomSelector.Data
             return choiceCardList.Where((_, i) => i == randomIdx).Single().Clone();
         }
 
-        public static CardEntity GetRandomCard(
-            IEnumerable<CardEntity> choiceCardList,
-            CardChoiceCondition condition,
-            Func<CardEntity, bool> predicate = null)
-        {
-            var condedList = choiceCardList.Where(x =>
-                condition.ExpansionIDList.Contains(x.ExpansionID) &&
-                !condition.ExpansionIDList.Contains(x.RerecordExpansionID) &&
-                !condition.IgnoreCardIDList.Contains(x.CardID));
-            if (predicate != null)
-            {
-                condedList = condedList.Where(predicate);
-            }
-
-            var randomIdx = Rnd.Next(0, choiceCardList.Count());
-            return condedList.Where((_, i) => i == randomIdx).Single().Clone();
-        }
-
         /// <summary>
         /// 指定のデータに対して絞り込み条件を設定
         /// </summary>
