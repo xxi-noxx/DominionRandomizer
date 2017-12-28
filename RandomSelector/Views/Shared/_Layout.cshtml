@@ -4,10 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ドミニオンセレクタ</title>
+    <meta name="description" content="ドミニオン(dominion)のサプライセレクタ(ランダマイザー)や、公式推奨サプライの一覧を掲載しています。" />
+    <meta name="keywords" content="ドミニオン,dominion,サプライ,ランダマイザー,セレクタ" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     @Styles.Render("~/bundles/mystyle")
     <link rel="shortcut icon" href="~/Content/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/favicon.ico">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,10 +21,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ドミニオンセレクタ", "", "", new { area = "" }, new { @class = "navbar-brand" })
+                <h1 style="margin: 0px;">@Html.ActionLink("ドミニオンセレクタ", "", "", new { area = "" }, new { @class = "navbar-brand" })</h1>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("ランダマイザー", "")</li>
                     <li>@Html.ActionLink("公式推奨サプライ", "Recommend", "Home")</li>
                     <li>@Html.ActionLink("veto版(工事中)", "Veto", "Home")</li>
                     <li>@Html.ActionLink("このサイトについて(工事中)", "Index", "Other")</li>
