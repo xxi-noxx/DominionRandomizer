@@ -72,7 +72,12 @@ namespace RandomSelector.Models.Param
             IsMustPlusAction = param.IsMustPlusAction;
             IsMustPlusBuy = param.IsMustPlusBuy;
             IsMustSpecialVictory = param.IsMustSpecialVictory;
-            PriorityExpansion = param.PriorityExpansion;
+
+            // 優先フラグは2種類以上の拡張が選択されている場合のみ有効。
+            if (ExpansionIDList.Any(x => param.PriorityExpansion.HasValue && param.PriorityExpansion != x))
+            {
+                PriorityExpansion = param.PriorityExpansion;
+            }
         }
 
         /// <summary>除外するカード一覧</summary>
