@@ -23,7 +23,7 @@
             @if (Model.UseNotKingdomCardList.Any())
             {
                 <tr>
-                    <th colspan="4">イベント・ランドマーク</th>
+                    <th colspan="4">イベント・ランドマーク・PROJECT</th>
                 </tr>
                 foreach (var card in Model.UseNotKingdomCardList.OrderBy(x => x.ExpansionID.GetDisplayAttr()?.GetOrder() ?? 0).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
                 {
@@ -31,7 +31,7 @@
                         <td>@card.ExpansionID.ToDisplayName()</td>
                         <td>@card.DisplayCost</td>
                         <td>@card.Name</td>
-                        <td>@(card.Type == CardType.Event ? Const.RemarkEvent : Const.RemarkLandMark)</td>
+                        <td>@(card.Type == CardType.Event ? Const.RemarkEvent : (card.Type == CardType.LandMark ? Const.RemarkLandMark : Const.RemarkProject))</td>
                     </tr>
                     if (card.CardID == Const.ObeliskCardID)
                     {
