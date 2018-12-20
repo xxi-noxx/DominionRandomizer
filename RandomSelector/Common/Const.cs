@@ -135,9 +135,9 @@ namespace RandomSelector.Common
         /// <summary>Nocturne</summary>
         [Display(Name = "Nocturne", Order = 14)]
         Nocturne = 14,
-        /// <summary>Reneissance</summary>
-        [Display(Name = "Reneissance", Order = 15)]
-        Reneissance = 15,
+        /// <summary>Renaissance</summary>
+        [Display(Name = "Renaissance", Order = 15)]
+        Renaissance = 15,
         /// <summary>プロモ</summary>
         [Display(Name = "プロモ", Order = 99)]
         Promotion = 99,

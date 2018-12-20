@@ -39,7 +39,7 @@ namespace RandomSelector.Service
                 PromCardList = _cardService.GetPromSupplyCardData()
             };
             // 初期選択からは「基本」「陰謀2nd」「Nocturne」「Reneissance」「プロモ」を外しておく
-            var exclusionExpansion = new[] { ExpansionID.Basic, ExpansionID.Promotion, ExpansionID.Intrigue2nd, ExpansionID.Nocturne, ExpansionID.Reneissance };
+            var exclusionExpansion = new[] { ExpansionID.Basic, ExpansionID.Promotion, ExpansionID.Intrigue2nd, ExpansionID.Nocturne, ExpansionID.Renaissance };
             model.Param.ExpansionIDList = EnumUtil.GetDisplayValues<ExpansionID>().Where(x => !exclusionExpansion.Contains(x));
             // 錬金術の重み付けは初期False
             model.Param.IsWeightingAlchemy = false;
