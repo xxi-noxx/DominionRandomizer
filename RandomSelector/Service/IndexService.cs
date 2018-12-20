@@ -38,8 +38,8 @@ namespace RandomSelector.Service
                 Param = new IndexParam(),
                 PromCardList = _cardService.GetPromSupplyCardData()
             };
-            // 初期選択からは「基本」「陰謀2nd」「Nocturne」「プロモ」を外しておく
-            var exclusionExpansion = new[] { ExpansionID.Basic, ExpansionID.Promotion, ExpansionID.Intrigue2nd, ExpansionID.Nocturne };
+            // 初期選択からは「基本」「陰謀2nd」「Nocturne」「Reneissance」「プロモ」を外しておく
+            var exclusionExpansion = new[] { ExpansionID.Basic, ExpansionID.Promotion, ExpansionID.Intrigue2nd, ExpansionID.Nocturne, ExpansionID.Renaissance };
             model.Param.ExpansionIDList = EnumUtil.GetDisplayValues<ExpansionID>().Where(x => !exclusionExpansion.Contains(x));
             // 錬金術の重み付けは初期False
             model.Param.IsWeightingAlchemy = false;
@@ -142,20 +142,29 @@ namespace RandomSelector.Service
             // カード選択
             while (kingdomCardList.Count < condition.SelectCardCount)
             {
-                // 優先拡張が選択されている場合は、王国カードが半分選択されるまでその拡張からのみ選択する。
-                if (condition.PriorityExpansion.HasValue && kingdomCardList.Count < (condition.SelectCardCount / 2))
+                if (condition.PriorityExpansion.HasValue)
                 {
-                    selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.ExpansionID == condition.PriorityExpansion);
+                    // 優先拡張が選択されている場合は、王国カードが半分選択されるまでその拡張からのみ選択する。
+                    if (kingdomCardList.Count < (condition.SelectCardCount / 2))
+                    {
+                        selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.ExpansionID == condition.PriorityExpansion);
+                    }
+                    else
+                    {
+                        selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition, x => x.ExpansionID != condition.PriorityExpansion);
+                    }
                 }
                 else
                 {
                     selectedCard = _cardService.GetRandomCard(CardData.SupplyCardData, condition);
                 }
 
+
                 if (selectedCard == null)
                 {
                     break;
                 }
+
                 if (selectedCard.Class == CardClass.NotKingdom)
                 {
                     // 王国以外のカードは最大2枚
@@ -168,11 +177,6 @@ namespace RandomSelector.Service
                 }
                 else
                 {
-                    // 優先拡張が選択されている場合の半分以降の王国カードは優先以外の拡張から選ぶ
-                    if (condition.PriorityExpansion.HasValue && selectedCard.ExpansionID == condition.PriorityExpansion && kingdomCardList.Count >= (condition.SelectCardCount / 2))
-                    {
-                        continue;
-                    }
                     selectedCard.SelectedNumber = kingdomCardList.Count + 1;
                     kingdomCardList.Add(selectedCard);
                 }

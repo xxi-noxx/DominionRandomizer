@@ -61,6 +61,28 @@ namespace RandomSelector.Common
         Gathering = 1 << 17,
         /// <summary>城</summary>
         Castle = 1 << 18,
+        /// <summary></summary>
+        Night = 1 << 19,
+        /// <summary></summary>
+        Fate = 1 << 20,
+        /// <summary></summary>
+        Doom = 1 << 21,
+        /// <summary></summary>
+        Heirloom = 1 << 22,
+        /// <summary></summary>
+        Spilit = 1 << 23,
+        /// <summary></summary>
+        Zombie = 1 << 24,
+        /// <summary></summary>
+        Boon = 1 << 25,
+        /// <summary></summary>
+        Hex = 1 << 26,
+        /// <summary></summary>
+        State = 1 << 27,
+        /// <summary></summary>
+        Artifact = 1 << 28,
+        /// <summary></summary>
+        Project = 1 << 29
     }
 
     /// <summary>
@@ -113,6 +135,9 @@ namespace RandomSelector.Common
         /// <summary>Nocturne</summary>
         [Display(Name = "Nocturne", Order = 14)]
         Nocturne = 14,
+        /// <summary>Renaissance</summary>
+        [Display(Name = "Renaissance", Order = 15)]
+        Renaissance = 15,
         /// <summary>プロモ</summary>
         [Display(Name = "プロモ", Order = 99)]
         Promotion = 99,
@@ -241,5 +266,9 @@ namespace RandomSelector.Common
         /// 備考－ランドマーク
         /// </summary>
         public const string RemarkLandMark = "[LM]";
+        /// <summary>
+        /// 備考－PROJECT
+        /// </summary>
+        public const string RemarkProject = "[PR]";
     }
 }

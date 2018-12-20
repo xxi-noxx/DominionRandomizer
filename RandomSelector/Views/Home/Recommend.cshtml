@@ -1,5 +1,5 @@
 ﻿@using RandomSelector.Data
-@model RandomSelector.Models.ViewModel.Home.RecommendViewModel
+@model RandomSelector.Models.ViewModel.RecommendViewModel
 
 @section main {
     <h2>公式推奨セット</h2>
@@ -13,7 +13,7 @@
     </div>
 
 
-    @foreach (var item in RecommendData.AllRecommendSetData.OrderByDescending(x => x.BaseExpansionID).ThenBy(x => x.RecommendSetID))
+    @foreach (var item in RecommendData.RecommendSetData.OrderByDescending(x => x.BaseExpansionID).ThenBy(x => x.RecommendSetID))
     {
         <hr />
         <h4 id="@item.RecommendSetID">@item.RecommendSetName</h4>
@@ -28,7 +28,7 @@
             }
         ）</p>
         <table class="table table-condensed" style="margin-bottom:10px;">
-            @foreach (var card in RecommendData.AllRecommendDetailLookup[item.RecommendSetID].OrderBy(x => x.Class).ThenBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
+            @foreach (var card in RecommendData.RecommendCardLookup[item.RecommendSetID].OrderBy(x => x.Class).ThenBy(x => x.ExpansionID).ThenBy(x => x.SortOrder).ThenBy(x => x.NameKana))
             {
                 <tr class="expansion@(card.ExpansionID.ToString("D"))">
                     <td class="col-xs-3">@card.ExpansionID.ToDisplayName()</td>
