@@ -25,7 +25,13 @@ namespace RandomSelector.Models.ViewModel
                     {
                         group = new SelectListGroup() { Name = item.BaseExpansionID.ToDisplayName() };
                     }
-                    string text = item.RecommendSetName + (item.BaseExpansionID == item.SubExpansionID ? "" : "（＋" + item.BaseExpansionID.ToDisplayName() + "）");
+
+                    var subExpansionText = "";
+                    if (item.SubExpansionIDs.Any())
+                    {
+                        subExpansionText = $"（＋{string.Join(", ", item.SubExpansionIDs.Select(x => x.ToDisplayName()))}）";
+                    }
+                    var text = item.RecommendSetName + subExpansionText;
 
                     yield return new SelectListItem()
                     {

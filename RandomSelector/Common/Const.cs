@@ -61,23 +61,23 @@ namespace RandomSelector.Common
         Gathering = 1 << 17,
         /// <summary>城</summary>
         Castle = 1 << 18,
-        /// <summary></summary>
+        /// <summary>夜行</summary>
         Night = 1 << 19,
-        /// <summary></summary>
+        /// <summary>幸福</summary>
         Fate = 1 << 20,
-        /// <summary></summary>
+        /// <summary>不幸</summary>
         Doom = 1 << 21,
-        /// <summary></summary>
+        /// <summary>家宝</summary>
         Heirloom = 1 << 22,
-        /// <summary></summary>
+        /// <summary>精霊</summary>
         Spilit = 1 << 23,
-        /// <summary></summary>
+        /// <summary>ゾンビ</summary>
         Zombie = 1 << 24,
-        /// <summary></summary>
+        /// <summary>祝福</summary>
         Boon = 1 << 25,
-        /// <summary></summary>
+        /// <summary>呪詛</summary>
         Hex = 1 << 26,
-        /// <summary></summary>
+        /// <summary>状態</summary>
         State = 1 << 27,
         /// <summary></summary>
         Artifact = 1 << 28,
@@ -132,8 +132,8 @@ namespace RandomSelector.Common
         /// <summary>陰謀2nd</summary>
         [Display(Name = "陰謀(2版)", Order = 4)]
         Intrigue2nd = 13,
-        /// <summary>Nocturne</summary>
-        [Display(Name = "Nocturne", Order = 14)]
+        /// <summary>夜想曲</summary>
+        [Display(Name = "夜想曲", Order = 14)]
         Nocturne = 14,
         /// <summary>Renaissance</summary>
         [Display(Name = "Renaissance", Order = 15)]
@@ -173,11 +173,11 @@ namespace RandomSelector.Common
         /// <summary>負債トークン</summary>
         [Display(Name = "負債トークン", Order = 15)]
         DebitToken = 1 << 7,
-        /// <summary>Boons</summary>
-        [Display(Name = "Boons", Order = 23)]
+        /// <summary>祝福</summary>
+        [Display(Name = "祝福", Order = 23)]
         Boons = 1 << 8,
-        /// <summary>Hexes</summary>
-        [Display(Name = "Hexes", Order = 24)]
+        /// <summary>呪詛</summary>
+        [Display(Name = "呪詛", Order = 24)]
         Hexes = 1 << 9
     }
 
@@ -187,19 +187,19 @@ namespace RandomSelector.Common
     public enum Heirloom
     {
         NoUse = 0,
-        [Display(Name = "HauntedMirror")]
+        [Display(Name = "呪いの鏡")]
         HauntedMirror = 1,
-        [Display(Name = "MagicLamp")]
+        [Display(Name = "魔法のランプ")]
         MagicLamp = 2,
-        [Display(Name = "Goat")]
+        [Display(Name = "ヤギ")]
         Goat = 3,
-        [Display(Name = "Pasture")]
+        [Display(Name = "牧草地")]
         Pasture = 4,
-        [Display(Name = "Pouch")]
+        [Display(Name = "革袋")]
         Pouch = 5,
-        [Display(Name = "CursedGold")]
+        [Display(Name = "呪われた金貨")]
         CursedGold = 6,
-        [Display(Name = "LuckyCoin")]
+        [Display(Name = "幸福のコイン")]
         LuckyCoin = 7
     }
 

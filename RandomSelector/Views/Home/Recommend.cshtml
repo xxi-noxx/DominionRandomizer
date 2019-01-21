@@ -18,13 +18,13 @@
         <hr />
         <h4 id="@item.RecommendSetID">@item.RecommendSetName</h4>
         <p>（
-            @if (item.BaseExpansionID == item.SubExpansionID)
+            @if (item.SubExpansionIDs.Any())
             {
-                @item.BaseExpansionID.ToDisplayName()
-            }
+                @String.Format("{0} + {1}", item.BaseExpansionID.ToDisplayName(), string.Join(" + ", item.SubExpansionIDs.Select(x => x.ToDisplayName()))
+)            }
             else
             {
-                @String.Format("{0} + {1}", item.BaseExpansionID.ToDisplayName(), item.SubExpansionID.ToDisplayName())
+                @item.BaseExpansionID.ToDisplayName()
             }
         ）</p>
         <table class="table table-condensed" style="margin-bottom:10px;">
@@ -33,8 +33,8 @@
                 <tr class="expansion@(card.ExpansionID.ToString("D"))">
                     <td class="col-xs-3">@card.ExpansionID.ToDisplayName()</td>
                     <td class="col-xs-1">@card.DisplayCost</td>
-                    <td class="col-xs-7">@card.Name</td>
-                    <td class="col-xs-1">@card.Remark</td>
+                    <td class="col-xs-6">@card.Name</td>
+                    <td class="col-xs-2">@card.Remark</td>
                 </tr>
             }
         </table>
