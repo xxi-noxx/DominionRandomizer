@@ -79,9 +79,9 @@ namespace RandomSelector.Common
         Hex = 1 << 26,
         /// <summary>状態</summary>
         State = 1 << 27,
-        /// <summary></summary>
+        /// <summary>アーティファクト</summary>
         Artifact = 1 << 28,
-        /// <summary></summary>
+        /// <summary>プロジェクト</summary>
         Project = 1 << 29
     }
 
@@ -135,8 +135,8 @@ namespace RandomSelector.Common
         /// <summary>夜想曲</summary>
         [Display(Name = "夜想曲", Order = 14)]
         Nocturne = 14,
-        /// <summary>Renaissance</summary>
-        [Display(Name = "Renaissance", Order = 15)]
+        /// <summary>ルネサンス</summary>
+        [Display(Name = "ルネサンス", Order = 15)]
         Renaissance = 15,
         /// <summary>プロモ</summary>
         [Display(Name = "プロモ", Order = 99)]
